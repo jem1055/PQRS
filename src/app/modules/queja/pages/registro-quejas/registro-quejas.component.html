@@ -38,16 +38,12 @@
     <form [formGroup]="formBusqueda" class="p-4">
       <h4 class="card-title text-center">TRAMITE</h4>
       <div class="row mb-2">
-        <div class="col">
-          <label for="busqueda" class="form-label">Busqueda:</label>
-          <input formControlName="busqueda" type="text" class="form-control" name="filterpost" placeholder="Busqueda"
-            [(ngModel)]="filterpost" />
-        </div>
+
       </div>
     </form>
 
     <div class="container-tramite" *ngIf="queja != null">
-      <div *ngFor="let tramite of queja.conversaciones | filter:filterpost ; let i = index" class="tramite">
+      <div *ngFor="let tramite of queja.conversaciones; let i = index" class="tramite">
         <table class="table">
           <thead>
             <tr>
