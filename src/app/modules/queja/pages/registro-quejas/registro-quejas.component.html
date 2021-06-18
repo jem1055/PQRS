@@ -1,0 +1,100 @@
+<div class="container">
+
+  <div class="formulario">
+    <form [formGroup]="form" class="p-4">
+      <h4 class="card-title text-center">CONSULTA QUEJAS</h4>
+      <div class="row mb-2">
+        <div class="col">
+          <label for="correo" class="form-label">Correo:</label>
+          <input formControlName="correo" type="text" class="form-control" id="correo"
+            placeholder="Ingresa tu correo electrónico" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="celular" class="form-label">Télefono Celular:</label>
+
+          <input formControlName="celular" type="text" class="form-control" id="celular"
+            placeholder="Ingresa tu celular" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label for="pin" class="form-label">Pin:</label>
+
+          <input formControlName="pin" type="text" class="form-control" id="pin" placeholder="Ingresa tu pin" />
+        </div>
+      </div>
+      <div class="col text-center mt-4">
+        <button (click)="consultar()" type="button" class="btn btn-primary">
+          Consultar Estado de tramite
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="buscador">
+    <form [formGroup]="formBusqueda" class="p-4">
+      <h4 class="card-title text-center">TRAMITE</h4>
+      <div class="row mb-2">
+        <div class="col">
+          <label for="busqueda" class="form-label">Busqueda:</label>
+          <input formControlName="busqueda" type="text" class="form-control" name="filterpost" placeholder="Busqueda"
+            [(ngModel)]="filterpost" />
+        </div>
+      </div>
+    </form>
+
+    <div class="container-tramite" *ngIf="queja != null">
+      <div *ngFor="let tramite of queja.conversaciones | filter:filterpost ; let i = index" class="tramite">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td>{{ tramite.titulo }}</td>
+              <td>{{ tramite.fecha | date}}</td>
+              <td>
+                <button type="button" class="btn btn-primary" (click)="chats(i)">Abrir</button>
+                <!--<button type="button" class="btn btn-primary" (click)="descargarArchivo()">Descargar</button>-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="historia">
+    <div class="card mt-4 p-3" *ngIf="mensajesArray != null">
+
+      <h4>HISTORIAL CONVERSACIONES</h4>
+
+      <div class="container-conversacion">
+        <div class="row">
+          <div *ngFor="let mensaje of mensajesArray" class="col-10">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{mensaje.nombre}}</h5>
+                <p class="card-text">{{mensaje.mensaje}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col text-center mt-4">
+            <button type="button" class="btn btn-primary" (click)="descargarArchivo()">Descargar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
